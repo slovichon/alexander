@@ -2,14 +2,18 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <err.h>
+
 #include "libalex.h"
-#include "proc.h"
+#include "server.h"
 
 int debuglevel;
+#if 0
 Proc **servers;	/* Servers handling clients */
 Proc *listener;	/* Listen()-ing server */
 Proc **mgt;	/* Management servers */
-int servertheshold;
+#endif
+int serverthreshold;
 int mgtthreshold;
 
 static void usage(int status);

@@ -71,9 +71,12 @@ enum proc_model
 	MPI_MODEL,
 };
 
-/* Defualts */
+/* Defaults */
 #define DEF_MODEL FORK_MODEL
 #define DEF_SERVERS 5
 #define DEF_MGT 1
+
+/* Maximums */
+#define MAX_SERVERS 25	/* Should probably be an arg option */
 
 #endif /* _CLIENT_H */
