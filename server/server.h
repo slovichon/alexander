@@ -62,4 +62,18 @@ int room_remove_client(Room *, Client *);
 
 /* Room mode flags */
 
+
+enum proc_model 
+{
+	FORK_MODEL,
+	THREAD_MODEL,
+	BOTH_MODEL,
+	MPI_MODEL,
+};
+
+/* Defualts */
+#define DEF_MODEL FORK_MODEL
+#define DEF_SERVERS 5
+#define DEF_MGT 1
+
 #endif /* _CLIENT_H */
