@@ -1,3 +1,5 @@
+/* $Id$ */
+
 #include <ctype.h>
 
 /*
@@ -21,31 +23,33 @@ double simple_hash(char *s)
 	int ch;
 
 	while (s != '\0') {
-		ch = toupper(*s)
+		ch = tolower(*s);
 		switch (ch)
 		{
-			case 65: case 66: case 67: case 68:
-			case 69: case 70: case 71: case 72:
-			case 73: case 74: case 75: case 76:
-			case 77: case 78: case 79: case 80:
-			case 81: case 82: case 83: case 84:
-			case 85: case 86: case 87: case 88:
-			case 89: case 90:
-				val = val*39 + (ch-65+1);
+			case 'a': case 'b': case 'c': case 'd':
+			case 'e': case 'f': case 'g': case 'h':
+			case 'i': case 'j': case 'k': case 'l':
+			case 'm': case 'n': case 'o': case 'p':
+			case 'q': case 'r': case 's': case 't':
+			case 'u': case 'v': case 'w': case 'x':
+			case 'y': case 'z':
+				val = val*39 + (ch-'a'+1);
 				break;
-			case 48: case 49: case 50: case 51:
-			case 52: case 53: case 54: case 55:
-			case 56: case 57:
-				val = val*39 + (ch-48+27);
+
+			case '0': case '1': case '2': case '3':
+			case '4': case '5': case '6': case '7':
+			case '8': case '9':
+				val = val*39 + (ch-'0'+26+1);
 				break;
+
 			case '_':
-				val = val*39 + 37
+				val = val*39 + 26+10+1;
 				break;
+
 			case '-':
-				val = val*39 + 38;
+				val = val*39 + 26+10+1+1;
 				break;
 		}
-		val = val*39 + 
 	}
 
 	return val;
