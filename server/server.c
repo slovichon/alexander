@@ -1,5 +1,5 @@
 /* $Id$ */
-#include "libAlex.h"
+#include "libalex.h"
 
 int main(int argc, char *argv)
 {
