@@ -31,6 +31,7 @@ struct room {
 extern Client **gClients;		/* All clients connected to this server */
 extern char *gMotd;			/* Message of the day */
 extern bool gAdminAllow;		/* Administratively allow/deny connections */
+extern int gNumClients;			/* Number of connected clients */
 
 /* Client-handling functions */
 int client_add(in_addr_t *, char *);	/* Add a client */
@@ -38,7 +39,7 @@ void client_remove(Client *);		/* Remove a client */
 bool client_exists(char *);		/* Checks existance of nickname */
 
 /* Group client-handling functions */
-bool client_capacity(size_t);		/* Ensure capacity in gClients */
+bool client_ensure_capacity(size_t);	/* Ensure capacity in gClients */
 int clients_add(Client *);		/* Add client */
 size_t clients_num(void);		/* Number of currently connected clients */
 

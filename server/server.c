@@ -6,6 +6,7 @@
 
 /* Initialize client list */
 Client **gClients = NULL;
+size_t gNumClients = 0;
 bool gAdminAllow = TRUE;
 
 /* Client-handling functions */
@@ -47,13 +48,15 @@ int client_add(in_addr_t *ip, char *nick)
 
 	/* Fill out nickname */
 	client->nick = strdup(nick);
-	if (client->nick == NULL) {
+	if (client->nick == NULL)
+	{
 		client_remove(client);
 		return E_NO_MEM;
 	}
 
 	/* Add global reference */
-	if ((error = clients_add(client)) != E_NONE) {
+	if ((error = clients_add(client)) != E_NONE)
+	{
 		client_remove(client);
 		return error;
 	}
@@ -86,7 +89,8 @@ NOTE - USE clients_remove()
 		if (*iter == client)
 			target = iter;
 	if (target != NULL)
-		if (last == NULL) {
+		if (last == NULL)
+		{
 			/* Remove last client */
 			*target = NULL;
 		} else {
@@ -133,6 +137,9 @@ int clients_resize(size_t target_size)
 	return E_NONE;
 }
 
+# if 0
+
+/* Deprecated by gNumClients */
 size_t clients_num(void)
 {
 	Client **iter;
@@ -142,7 +149,9 @@ size_t clients_num(void)
 	return clients;
 }
 
-bool client_capacity(size_t size)
+#endif
+
+bool client_ensure_capacity(size_t size)
 {
 	return TRUE;
 }

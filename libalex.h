@@ -21,20 +21,15 @@ ssize_t Read(int fd, void *buf, size_t nbytes);
 ssize_t Write(int fd, void *buf, size_t nbytes);
 
 int Socket(int family, int type, int protocol);
-int Connect(int sockfd, const struct sockaddr *servaddr,
-		socklen_t addrlen);
-int Bind(int sockfd, const struct sockaddr *myaddr,
-		socklen_t addrlen);
+int Connect(int sockfd, const struct sockaddr *servaddr, socklen_t addrlen);
+int Bind(int sockfd, const struct sockaddr *myaddr, socklen_t addrlen);
 int Listen(int sockfd, int backlog);
-int Accept(int sockfd, struct sockaddr *cliaddr,
-		socklen_t *addrlen);
+int Accept(int sockfd, struct sockaddr *cliaddr, socklen_t *addrlen);
 
 key_t Ftok(const char *pathname, int id);
-ssize_t Msgrcv(int msqid, void *ptr, size_t length,
-		long type, int flag);
+ssize_t Msgrcv(int msqid, void *ptr, size_t length, long type, int flag);
 int Msgget(key_t key, int oflag);
-int Msgsnd(int msqid, const void *ptr, size_t length,
-		int flag);
+int Msgsnd(int msqid, const void *ptr, size_t length, int flag);
 
 /* default permission */
 #define DEFAULT_FILE_MODE \
@@ -44,8 +39,8 @@ int Msgsnd(int msqid, const void *ptr, size_t length,
 #define MAXLINE 1024
 
 enum bool_t {
+	FALSE = 0,
 	TRUE  = 1,
-	FALSE = 0
 };
 
 typedef enum bool_t bool;

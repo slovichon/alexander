@@ -15,9 +15,8 @@
 static void _croak(char *function_name);
 
 /*
- * substr - takes a character array and takes
- * a portion of it and copies it to a pointer
- * that is also passed
+ * substr - takes a character array and takes a portion of it and copies it
+ * to a pointer that is also passed
  *
  * Arguments:
  *	first - first element of char array
@@ -33,7 +32,8 @@ void substr(int first, int last, char *text, char *subtext)
 	if (i < 1)
 		return;
 
-	for(i = first; i <= last; i++) {
+	for (i = first; i <= last; i++)
+	{
 		subtext[j] = text[i - 1];
 		j++;
 	}
@@ -78,9 +78,7 @@ int Msgget(key_t key, int oflag)
 	return i;
 }
 
-int
-Msgsnd(int msqid, const void *ptr, size_t length,
-	int flag)
+int Msgsnd(int msqid, const void *ptr, size_t length, int flag)
 {
 	int i;
 	if ((i = msgsnd(msqid, ptr, length, flag)) == -1)
@@ -88,9 +86,7 @@ Msgsnd(int msqid, const void *ptr, size_t length,
 	return i;
 }
 
-ssize_t
-Msgrcv(int msqid, void *ptr, size_t length,
-	long type, int flag)
+ssize_t Msgrcv(int msqid, void *ptr, size_t length, long type, int flag)
 {
 	ssize_t i;
 	if ((i = msgrcv(msqid, ptr, length, type, flag)) == -1)
@@ -107,9 +103,7 @@ int Socket(int family, int type, int protocol)
 	return i;
 }
 
-int
-Connect(int sockfd, const struct sockaddr *servaddr,
-	socklen_t addrlen)
+int Connect(int sockfd, const struct sockaddr *servaddr, socklen_t addrlen)
 {
 	int i;
 	if ((i = connect(sockfd, servaddr, addrlen)) == -1)
@@ -117,9 +111,7 @@ Connect(int sockfd, const struct sockaddr *servaddr,
 	return i;
 }
 
-int
-Bind(int sockfd, const struct sockaddr *myaddr,
-	socklen_t addrlen)
+int Bind(int sockfd, const struct sockaddr *myaddr, socklen_t addrlen)
 {
 	int i;
 	if ((i = bind(sockfd, myaddr, addrlen)) == -1)
@@ -135,9 +127,7 @@ int Listen(int sockfd, int backlog)
 	return i;
 }
 
-int
-Accept(int sockfd, struct sockaddr *cliaddr,
-	socklen_t *addrlen)
+int Accept(int sockfd, struct sockaddr *cliaddr, socklen_t *addrlen)
 {
 	int i;
 	if ((i = accept(sockfd, cliaddr, addrlen)) == -1)
@@ -204,13 +194,16 @@ int Open(const char *pathname, int flags, mode_t mode)
 
 /* Error functions */
 /*
- * _croak - displays errors associated with
- * calling a function. uses system 'errno'
+ * _croak - displays errors associated with calling a function. uses
+ * system 'errno'
+ *
+ * someone needs to read the manpage for err(3)
  */
 static void _croak(char *func)
 {
 	extern int errno;
-	printf("Error calling %s(): %s\n", func,
-		strerror(errno));
+	printf("Error calling %s(): %s\n", func, strerror(errno));
 	exit(2);
 }
+
+/* we probably need one for general warning messages */
