@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "libAlex.h"
+#include "libalex.h"
 
 static void _croak(char *function_name);
 
