@@ -32,6 +32,12 @@ ssize_t Msgrcv(int msqid, void *ptr, size_t length, long type, int flag);
 int Msgget(key_t key, int oflag);
 int Msgsnd(int msqid, const void *ptr, size_t length, int flag);
 
+void *xcalloc(size_t nmemb, size_t size);
+void *xmalloc(size_t size);
+void xfree(void *ptr);
+void *xrealloc(void *ptr, size_t size);
+/* void *xrecalloc(void *ptr, size_t nmemb, size_t size) */
+
 extern char *_prefix;
 
 void bark(char *fmt, ...);
