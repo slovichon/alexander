@@ -1,7 +1,7 @@
 # $Id$
 
 TARGET = client
-OBJECTS = client.o ../libalex.o
+OBJECTS = main.o ../libalex.o
 CFLAGS = -I..
 LIBS =
 
