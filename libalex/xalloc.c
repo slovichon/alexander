@@ -8,7 +8,7 @@ void *xcalloc(size_t nmemb, size_t size)
 {
 	void *ptr;
 	if ((ptr = calloc(nmemb, size)) == NULL)
-		err("Unable to calloc()");
+		err(2, "Unable to calloc()");
 	return ptr;
 }
 
@@ -16,7 +16,8 @@ void *xmalloc(size_t size)
 {
 	void *ptr;
 	if ((ptr = malloc(size)) == NULL)
-		err("Unable to malloc()");
+		err(2, "Unable to malloc()");
+	return ptr;
 }
 
 /*
@@ -34,7 +35,7 @@ void xfree(void *ptr)
 void *xrealloc(void *ptr, size_t size)
 {
 	if ((ptr = realloc(ptr, size)) == NULL)
-		err("Unable to realloc()");
+		err(2, "Unable to realloc()");
 	return ptr;
 }
 
@@ -44,7 +45,7 @@ void *xrecalloc(void *ptr, size_t nmemb, size_t size)
 	void *new;
 	void *olditer, *newiter;
 	if ((new = calloc(nmemb, size)) == NULL)
-		err("Unable to calloc()");
+		err(2, "Unable to calloc()");
 	for (olditer = ptr, newiter = new; olditer - ptr < omemb; olditer++, newiter++)
 		memcpy(newiter, olditer, size);
 	free(ptr);
