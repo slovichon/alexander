@@ -1,0 +1,11 @@
+wrappers
+	change to preproc
+		advantages:
+			good for # and function name, line/file in error output
+		disadvantages:
+			messy
+			error-prone
+			not ideal for functional blocks
+				if ((a = FOPEN()))
+				(if FOPEN() is preproc for a block of code, that won't work,
+					and these wrappers will probably be somewhat complicated)
