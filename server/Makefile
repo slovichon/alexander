@@ -1,12 +1,12 @@
 # $Id$
 
 TARGET = server
-OBJECTS = server.o
+OBJECTS = server.o ../libalex.o
 CFLAGS = -I..
 LIBS =
 
 .c.o:
-	$(CC) $(CFLAGS) -c $<
+	(cd `dirname $<` && $(CC) $(CFLAGS) -c `basename $<`)
 
 all: $(TARGET)
 
