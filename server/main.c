@@ -20,7 +20,7 @@ static void usage(int status);
 
 int main(int argc, char *argv[])
 {
-	char ch;
+	int ch;
 	extern char *optarg;
 	enum proc_model model;
 
