@@ -52,7 +52,7 @@ void bark(char *fmt, ...);
 typedef enum
 {
 	FALSE = 0,
-	TRUE  = 1,
+	TRUE  = 1
 } bool_t;
 
 #define EXIT_OK		0	/* Successful exit */

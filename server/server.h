@@ -68,7 +68,7 @@ enum proc_model
 	FORK_MODEL,
 	THREAD_MODEL,
 	BOTH_MODEL,
-	MPI_MODEL,
+	MPI_MODEL
 };
 
 /* Defaults */

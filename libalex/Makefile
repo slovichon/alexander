@@ -1,14 +1,19 @@
 # $Id$
 
-.include "../mk/defs.mk"
-
-TARGET = libalex.so
+TARGET = libalex.so.1.0
 OBJS = misc.o net.o vlist.o wrapper.o xalloc.o
-CFLAGS = -Wall
+CFLAGS = -Wall -pedantic -O2
 TEST = test
+LIBS = -L. -lalex
 
-.include $(TARGETS_INC)
+all-recurse: all
+
+all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	@echo -e "$(SEQ_CC)$(CC)$(SEQ_ESC) $(CFLAGS) -shared -fPIC $(SEQ_OUT)-o $(TARGET)$(SEQ_ESC) $(SEQ_ARG)$(OBJS)$(SEQ_ESC)"
-	@$(CC) $(CFLAGS) -shared -fPIC -o $(TARGET) $(OBJS)
+	$(CC) -shared -fPIC -o $(TARGET) $(OBJS)
+
+clean-recurse: clean
+
+clean:
+	rm -f $(TARGET) $(OBJS) $(TEST)
