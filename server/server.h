@@ -31,16 +31,18 @@ struct room {
 extern Client **gClients;		/* All clients connected to this server */
 extern char *gMotd;			/* Message of the day */
 extern bool gAdminAllow;		/* Administratively allow/deny connections */
-extern size_t gNumClients;		/* Number of connected clients */
+extern size_t gAvailClients;		/* Number of available (allocatable) clients */
 
 /* Client-handling functions */
-int client_add(in_addr_t *, char *);	/* Add a client */
+int  client_add(in_addr_t *, char *);	/* Add a client */
 void client_remove(Client *);		/* Remove a client */
 bool client_exists(char *);		/* Checks existance of nickname */
 
 /* Group client-handling functions */
-bool client_ensure_capacity(size_t);	/* Ensure capacity in gClients */
-int clients_add(Client *);		/* Add client */
+void   client_ensure_capacity(size_t);	/* Ensure capacity in gClients */
+int    clients_add(Client *);		/* Add client to other referencing structures */
+size_t clients_num(void);		/* Number of concurrently connected clients */
+void   clients_remove(Client *);	/* Remove refs to client */
 
 /* Room-handling functions */
 int room_add_client(Room *, Client *);
