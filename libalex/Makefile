@@ -16,4 +16,4 @@ test: $(OBJECTS) test.o
 	$(CC) $(CFLAGS) -o test $(OBJECTS) test.o
 
 clean:
-	rm -f $(OBJECTS)
+	rm -f $(OBJECTS) test
