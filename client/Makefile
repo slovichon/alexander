@@ -1,8 +1,8 @@
 # $Id$
 
 TARGET = client
-OBJECTS = main.o ../libalex.o
-CFLAGS = -I.. -I. -Wall
+OBJECTS = main.o ../libalex/net.o ../libalex/wrapper.o
+CFLAGS = -I../libalex -Ilibalex -Wall
 LIBS =
 
 .c.o:

@@ -98,8 +98,8 @@ NOTE - USE clients_remove()
 			*target = *last;
 			*last = NULL;
 		}
-}
 #endif
+}
 
 bool client_exists(char *nick)
 {
@@ -114,10 +114,9 @@ bool client_exists(char *nick)
 int clients_resize(size_t target_size)
 {
 	Client **new, **old_iter, **new_iter;
-	size_t current_size = clients_num();
 
 	/* Check for difference */
-	if (target_size == current_size)
+	if (target_size == gNumClients)
 		return E_NONE;
 
 	/* Allocate new mem */
