@@ -30,13 +30,13 @@ struct room {
 
 extern Client **gClients;		/* All clients connected to this server */
 extern char *gMotd;			/* Message of the day */
-extern bool gAdminAllow;		/* Administratively allow/deny connections */
+extern bool_t gAdminAllow;		/* Administratively allow/deny connections */
 extern size_t gAvailClients;		/* Number of available (allocatable) clients */
 
 /* Client-handling functions */
 int  client_add(in_addr_t *, char *);	/* Add a client */
 void client_remove(Client *);		/* Remove a client */
-bool client_exists(char *);		/* Checks existance of nickname */
+bool_t client_exists(char *);		/* Checks existance of nickname */
 
 /* Group client-handling functions */
 void   client_ensure_capacity(size_t);	/* Ensure capacity in gClients */

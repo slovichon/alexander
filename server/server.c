@@ -13,7 +13,7 @@ Client **gClients = NULL;
  * the number of actually connected clients.
  */
 size_t gAvailClients = 0;
-bool gAdminAllow = TRUE;
+bool_t gAdminAllow = TRUE;
 
 /* Client-handling functions */
 int client_add(in_addr_t *ip, char *nick)
@@ -87,7 +87,7 @@ void client_remove(Client *client)
 	free(client);
 }
 
-bool client_exists(char *nick)
+bool_t client_exists(char *nick)
 {
 	int i;
 	for (i = 0; i < clients_num(); i++)
