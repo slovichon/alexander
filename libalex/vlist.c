@@ -136,6 +136,10 @@ bark("new vlists is %p=%p=%p", new, list->base, vlists);
 /*
  * vlist_find - find the struct vlist containing information
  * about a list in our vlists list of list information.
+ *
+ * Note: this should probably be static, as it deals with
+ * our list of information about other lists, which no one
+ * should ever need.
  */
 struct vlist *vlist_find(void **base)
 {
