@@ -1,0 +1,7 @@
+conform lines to 90 columns
+braces go on next line:
+
+	if (COND)
+	{
+		EXPR
+	}
