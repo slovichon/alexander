@@ -2,11 +2,9 @@
 #include "libalex.h"
 #include "server.h"
 
-#define HANDLER pid_t
 
-HANDLER **handlers;
 
-/* Inspects the pool health */
+/* Inspects the pool service availability */
 void pool_inspect()
 {
 	HANDLER **busy, **idle;
