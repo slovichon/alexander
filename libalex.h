@@ -1,16 +1,13 @@
 /* $Id$ */
-
 #ifndef __LIBALEX_H
 #define __LIBALEX_H
 
-/* headers */
 #include <sys/types.h>
-#include <sys/socket.h>	/* sockets */
+#include <sys/socket.h>
 
-/* prototypes */
 void substr(int first, int last, char *text, char *subtext);
 
-/* wrappers */
+/* Wrappers */
 pid_t Fork(void);
 pid_t Waitpid(pid_t wpid, int *status, int options);
 
@@ -39,12 +36,18 @@ int Msgget(key_t key, int oflag);
 int Msgsnd(int msqid, const void *ptr, size_t length,
 		int flag);
 
-/* defines */
 /* default permission */
 #define DEFAULT_FILE_MODE \
 	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 
 /* maximum length for read/write buffer */
 #define MAXLINE 1024
+
+enum bool_t {
+	TRUE  = 1,
+	FALSE = 0
+};
+
+typedef enum bool_t bool;
 
 #endif /* _LIBALEX_H */
