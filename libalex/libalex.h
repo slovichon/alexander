@@ -32,6 +32,10 @@ ssize_t Msgrcv(int msqid, void *ptr, size_t length, long type, int flag);
 int Msgget(key_t key, int oflag);
 int Msgsnd(int msqid, const void *ptr, size_t length, int flag);
 
+extern char *_prefix;
+
+void bark(char *fmt, ...);
+
 /* default permission */
 #define DEFAULT_FILE_MODE \
 	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
@@ -39,12 +43,10 @@ int Msgsnd(int msqid, const void *ptr, size_t length, int flag);
 /* maximum length for read/write buffer */
 #define MAXLINE 1024
 
-enum bool_t
+typedef enum
 {
 	FALSE = 0,
 	TRUE  = 1,
-};
-
-typedef enum bool_t bool;
+} bool_t;
 
 #endif /* _LIBALEX_H */
