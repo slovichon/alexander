@@ -13,14 +13,18 @@
  * Arguments:
  * 	address - char array containing hostname or IP
  */
-struct in_addr * atoaddr(char *address)
+struct in_addr *atoaddr(char *address)
 {
 	struct hostent *host;
-	static struct in_addr saddr;
+	struct in_addr saddr;
 	
+	/*
+	 * If the argument was an IP address, return
+	 * the IP address as in_addr.
+	 */
 	saddr.s_addr = inet_addr(address);
 	if (saddr.s_addr != -1)   
-		return &saddr;   /*returns if hostname conversion is not needed*/
+		return &saddr;
 
 	host = gethostbyname(address);
 	if (host != NULL)
