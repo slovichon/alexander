@@ -4,8 +4,10 @@
 
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 
 void substr(int first, int last, char *text, char *subtext);
+struct in_addr * atoaddr(char *address);
 
 /* Wrappers */
 pid_t Fork(void);
@@ -38,7 +40,8 @@ int Msgsnd(int msqid, const void *ptr, size_t length, int flag);
 /* maximum length for read/write buffer */
 #define MAXLINE 1024
 
-enum bool_t {
+enum bool_t
+{
 	FALSE = 0,
 	TRUE  = 1,
 };
