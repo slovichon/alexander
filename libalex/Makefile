@@ -5,7 +5,7 @@ OBJECTS = misc.o net.o vlist.o wrapper.o xalloc.o
 
 CFLAGS = -Wall
 
-all: $(TARGET)
+all: $(TARGET) test
 
 $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -shared -o $@ $(OBJECTS)
