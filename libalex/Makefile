@@ -1,13 +1,14 @@
 # $Id$
 
-TARGET = libalex
-OBJECTS = net.o wrapper.o vlist.o misc.o
+TARGET = libalex.so
+OBJECTS = misc.o net.o vlist.o wrapper.o xalloc.o
 
 CFLAGS = -Wall
 
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -shared -o $@ $(OBJECTS)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<
@@ -16,4 +17,4 @@ test: $(OBJECTS) test.o
 	$(CC) $(CFLAGS) -o test $(OBJECTS) test.o
 
 clean:
-	rm -f $(OBJECTS) test
+	rm -f $(OBJECTS) test test.o
