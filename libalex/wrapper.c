@@ -23,7 +23,7 @@ key_t Ftok(const char *pathname, int id)
 {
 	key_t i;
 	if ((i = ftok(pathname, id)) == -1)
-		err(2, "ftok");
+		err(EXIT_SYS, "ftok");
 	return i;
 }
 
@@ -31,7 +31,7 @@ int Pipe(int fd[2])
 {
 	int i;
 	if ((i = pipe(fd)) == -1)
-		err(2, "pipe");
+		err(EXIT_SYS, "pipe");
 	return i;
 }
 
@@ -39,7 +39,7 @@ int Mkfifo(const char *pathname, mode_t mode)
 {
 	int i;
 	if ((i = mkfifo(pathname, mode)) == -1)
-		err(2, "mkfifo");
+		err(EXIT_SYS, "mkfifo");
 	return i;
 }
 
@@ -47,7 +47,7 @@ int Msgget(key_t key, int oflag)
 {
 	int i;
 	if ((i = msgget(key, oflag)) == -1)
-		err(2, "msgget");
+		err(EXIT_SYS, "msgget");
 	return i;
 }
 
@@ -55,7 +55,7 @@ int Msgsnd(int msqid, const void *ptr, size_t length, int flag)
 {
 	int i;
 	if ((i = msgsnd(msqid, ptr, length, flag)) == -1)
-		err(2, "msgsnd");
+		err(EXIT_SYS, "msgsnd");
 	return i;
 }
 
@@ -63,7 +63,7 @@ ssize_t Msgrcv(int msqid, void *ptr, size_t length, long type, int flag)
 {
 	ssize_t i;
 	if ((i = msgrcv(msqid, ptr, length, type, flag)) == -1)
-		err(2, "msgrcv");
+		err(EXIT_SYS, "msgrcv");
 	return i;
 }
 
@@ -72,7 +72,7 @@ int Socket(int family, int type, int protocol)
 {
 	int i;
 	if ((i = socket(family, type, protocol)) == -1)
-		err(2, "socket");
+		err(EXIT_SYS, "socket");
 	return i;
 }
 
@@ -80,7 +80,7 @@ int Connect(int sockfd, const struct sockaddr *servaddr, socklen_t addrlen)
 {
 	int i;
 	if ((i = connect(sockfd, servaddr, addrlen)) == -1)
-		err(2, "connect");
+		err(EXIT_SYS, "connect");
 	return i;
 }
 
@@ -88,7 +88,7 @@ int Bind(int sockfd, const struct sockaddr *myaddr, socklen_t addrlen)
 {
 	int i;
 	if ((i = bind(sockfd, myaddr, addrlen)) == -1)
-		err(2, "bind");
+		err(EXIT_SYS, "bind");
 	return i;
 }
 
@@ -96,7 +96,7 @@ int Listen(int sockfd, int backlog)
 {
 	int i;
 	if ((i = listen(sockfd, backlog)) == -1)
-		err(2, "listen");
+		err(EXIT_SYS, "listen");
 	return i;
 }
 
@@ -104,7 +104,7 @@ int Accept(int sockfd, struct sockaddr *cliaddr, socklen_t *addrlen)
 {
 	int i;
 	if ((i = accept(sockfd, cliaddr, addrlen)) == -1)
-		err(2, "accept");
+		err(EXIT_SYS, "accept");
 	return i;
 }
 
@@ -113,7 +113,7 @@ pid_t Fork(void)
 {
 	pid_t i;
 	if ((i = fork()) == -1)
-		err(2, "fork");
+		err(EXIT_SYS, "fork");
 	return i;
 }
 
@@ -121,7 +121,7 @@ int Close(int fd)
 {
 	int i;
 	if ((i = close(fd)) == -1)
-		err(2, "close");
+		err(EXIT_SYS, "close");
 	return i;
 }
 
@@ -129,7 +129,7 @@ ssize_t Read(int fd, void *buf, size_t nbytes)
 {
 	ssize_t i;
 	if ((i = read(fd, buf, nbytes)) == -1)
-		err(2, "read");
+		err(EXIT_SYS, "read");
 	return i;
 }
 
@@ -137,7 +137,7 @@ ssize_t Write(int fd, void *buf, size_t nbytes)
 {
 	ssize_t i;
 	if ((i = write(fd, buf, nbytes)) == -1)
-		err(2, "write");
+		err(EXIT_SYS, "write");
 	return i;
 }
 
@@ -145,7 +145,7 @@ pid_t Waitpid(pid_t wpid, int *status, int options)
 {
 	pid_t i;
 	if ((i = waitpid(wpid, status, options)) == -1)
-		err(2, "waitpid");
+		err(EXIT_SYS, "waitpid");
 	return i;
 }
 
@@ -153,7 +153,7 @@ int Unlink(const char *pathname)
 {
 	int i;
 	if ((i = unlink(pathname)) == -1)
-		err(2, "unlink");
+		err(EXIT_SYS, "unlink");
 	return i;
 }
 
@@ -161,6 +161,6 @@ int Open(const char *pathname, int flags, mode_t mode)
 {
 	int i;
 	if ((i = open(pathname, flags, mode)) == -1)
-		err(2, "open");
+		err(EXIT_SYS, "open");
 	return i;
 }

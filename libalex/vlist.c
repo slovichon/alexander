@@ -48,12 +48,12 @@ bark("not found, continuing");
 
 	/* Our structure to maintain info on the list */
 	if ((list = (struct vlist *)malloc(sizeof(struct vlist))) == NULL)
-		err(2, "unable to malloc()");
+		err(EXIT_SYS, "unable to malloc()");
 bark("vlist_entry = malloc() = %p", list);
 
 	/* The list of elements */
 	if ((*base = (void **)calloc(nmemb, siz)) == NULL)
-		err(2, "unable to calloc()");
+		err(EXIT_SYS, "unable to calloc()");
 bark("base = malloc() = %p", *base);
 
 	/*
@@ -104,7 +104,7 @@ void vlist_ensure(void ***base, size_t newsiz)
 			newsiz = (newsiz * 3) / 2;
 bark("vlist too small! resizing to %d from %d", newsiz, list->avail);
 			if ((new = calloc(newsiz, list->siz)) == NULL)
-				err(2, "unable to calloc()");
+				err(EXIT_SYS, "unable to calloc()");
 			/*
 			 * Copy pointers from the old list that was too
 			 * small to the new list that has more space.

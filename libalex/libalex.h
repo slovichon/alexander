@@ -55,4 +55,8 @@ typedef enum
 	TRUE  = 1,
 } bool_t;
 
+#define EXIT_OK		0	/* Successful exit */
+#define EXIT_USER	1	/* User-induced exit (misconfig, bad args, etc) */
+#define EXIT_SYS	2 	/* Memory/syscall-related error */
+
 #endif /* _LIBALEX_H */

@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
 	for (i = 0; i < 6; i++) {
 		if ((b = (int *)malloc(sizeof(int))) == NULL)
-			err(2, "unable to malloc()");
+			err(EXIT_SYS, "unable to malloc()");
 		*b = i;
 bark("[test] adding %d", *b);
 		vlist_add((void ***)&a, b);
