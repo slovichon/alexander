@@ -4,6 +4,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <stdlib.h>
+#include <err.h>
 
 #include "libalex.h"
 
@@ -16,18 +18,16 @@
 struct in_addr *atoaddr(char *address)
 {
 	struct hostent *host;
-	struct in_addr saddr;
-	
+	static struct in_addr saddr;
+
 	/*
 	 * If the argument was an IP address, return
 	 * the IP address as in_addr.
 	 */
-	saddr.s_addr = inet_addr(address);
-	if (saddr.s_addr != -1)   
+	if ((saddr.s_addr = inet_addr(address)) != -1)
 		return &saddr;
 
-	host = gethostbyname(address);
-	if (host != NULL)
+	if ((host = gethostbyname(address)) != NULL)
 		return (struct in_addr *)*host->h_addr_list;
 
 	return NULL;
