@@ -6,7 +6,13 @@
 
 /* Initialize client list */
 Client **gClients = NULL;
-size_t gNumClients = 0;
+
+/*
+ * This variable contains the number of concurrently
+ * allocatable clients. clients_num() will determine
+ * the number of actually connected clients.
+ */
+size_t gAvailClients = 0;
 bool gAdminAllow = TRUE;
 
 /* Client-handling functions */
@@ -74,85 +80,66 @@ void client_remove(Client *client)
 	if (client->nick != NULL)
 		free(client->nick);
 
+	/* Remove all references/mem/etc. to client */
+	clients_remove(client);
+
 	/* Remove client memory */
 	free(client);
-
-#if 0
-NOTE - USE clients_remove()
-
-	Client **last, **iter, **target;
-
-	/* Remove client reference in global clients memory */
-	last = NULL;
-	target = NULL;
-	for (iter = gClients; (iter != NULL) && (*iter != NULL); last = iter++)
-		if (*iter == client)
-			target = iter;
-	if (target != NULL)
-		if (last == NULL)
-		{
-			/* Remove last client */
-			*target = NULL;
-		} else {
-			/* Swap target with last */
-			*target = *last;
-			*last = NULL;
-		}
-#endif
 }
 
 bool client_exists(char *nick)
 {
-	Client **iter;
-	for (iter = gClients; (iter != NULL) && (*iter != NULL); iter++)
-		if (strcasecmp((*iter)->nick, nick) == 0)
+	int i;
+	for (i = 0; i < clients_num(); i++)
+		if (strcasecmp(gClients[i]->nick, nick) == 0)
 			return TRUE;
 	return FALSE;
 }
 
 /* Group client-handling functions */
-int clients_resize(size_t target_size)
+int clients_resize(size_t tsiz)
 {
-	Client **new, **old_iter, **new_iter;
+	Client **new, **iter;
+	int i;
 
+#if 0
 	/* Check for difference */
-	if (target_size == gNumClients)
+	if (tsiz <= gAvailClients)
 		return E_NONE;
+#endif
 
 	/* Allocate new mem */
-	if ((new = calloc(target_size, sizeof(Client *))) != NULL)
+	if ((new = calloc(tsiz, sizeof(Client *))) != NULL)
+#if 0
+		err("couldn't malloc()");
+#endif
 		return E_NO_MEM;
 
-	/* Copy memory */
-	new_iter = new;
-	for (old_iter = gClients;
-	     (old_iter != NULL) && (*old_iter != NULL);
-	     old_iter++, new_iter++)
-		memmove(*new_iter, *old_iter, sizeof *old_iter);
-	if (gClients != NULL)
-		free(gClients);
+	/* Copy clients' refs to new list */
+	for (i = 0, iter = new; i < clients_num(); iter++, i++)
+		memmove(*iter, gClients[i], sizeof(Client *));
+	/* Append null entry to end of list */
+	*iter = NULL;
+	free(gClients);
 	gClients = new;
+	gAvailClients = tsiz;
 
 	return E_NONE;
 }
 
-# if 0
-
-/* Deprecated by gNumClients */
-size_t clients_num(void)
+void client_ensure_capacity(size_t size)
 {
-	Client **iter;
-	size_t clients = 0;
-	for (iter = gClients; (iter != NULL) && (*iter != NULL); iter++)
-		clients++;
-	return clients;
+	if (size < gAvailClients)
+		clients_resize(size);
 }
 
-#endif
-
-bool client_ensure_capacity(size_t size)
+size_t clients_num(void)
 {
-	return TRUE;
+	int i;
+	size_t num = 0;
+	for (i = 0; i < clients_num(); i++)
+		num++;
+	return num;
 }
 
 int clients_add(Client *client)
@@ -162,6 +149,26 @@ int clients_add(Client *client)
 
 void clients_remove(Client *client)
 {
+	Client **last, **iter, **target;
+
+	/* Remove client reference in global clients memory */
+	last = NULL;
+	target = NULL;
+	for (iter = gClients; (iter != NULL) && (*iter != NULL); last = iter++)
+		if (*iter == client)
+			target = iter;
+	if (target != NULL)
+	{
+		if (last == NULL)
+		{
+			/* Remove last client */
+			*target = NULL;
+		} else {
+			/* Swap target with last */
+			*target = *last;
+			*last = NULL;
+		}
+	}
 }
 
 /* Room-handling functions */
