@@ -1,17 +1,10 @@
 # $Id$
 
+.include "../mk/defs.mk"
+
 TARGET = client
-OBJECTS = main.o ../libalex/net.o ../libalex/wrapper.o
-CFLAGS = -I../libalex -Ilibalex -Wall
-LIBS =
+OBJS = main.o
+CFLAGS = -Wall
+LIBS = -L$(LIBALEX_ROOT) -lalex
 
-.c.o:
-	(cd `dirname $<` && $(CC) $(CFLAGS) -c `basename $<`)
-
-all: $(TARGET)
-
-$(TARGET): $(OBJECTS)
-	$(CC) $(LIBS) -o $(TARGET) $(OBJECTS)
-
-clean:
-	rm -f $(TARGET) $(OBJECTS)
+.include $(TARGETS_INC)

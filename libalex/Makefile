@@ -1,20 +1,14 @@
 # $Id$
 
+.include "../mk/defs.mk"
+
 TARGET = libalex.so
-OBJECTS = misc.o net.o vlist.o wrapper.o xalloc.o
-
+OBJS = misc.o net.o vlist.o wrapper.o xalloc.o
 CFLAGS = -Wall
+TEST = test
 
-all: $(TARGET) test
+.include $(TARGETS_INC)
 
-$(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) -shared -o $@ $(OBJECTS)
-
-.c.o:
-	$(CC) $(CFLAGS) -c $<
-
-test: $(OBJECTS) test.o
-	$(CC) $(CFLAGS) -o test $(OBJECTS) test.o
-
-clean:
-	rm -f $(OBJECTS) test test.o
+$(TARGET): $(OBJS)
+	@echo -e "$(SEQ_CC)$(CC)$(SEQ_ESC) $(CFLAGS) -shared -fPIC $(SEQ_OUT)-o $(TARGET)$(SEQ_ESC) $(SEQ_ARG)$(OBJS)$(SEQ_ESC)"
+	@$(CC) $(CFLAGS) -shared -fPIC -o $(TARGET) $(OBJS)
