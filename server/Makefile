@@ -1,8 +1,8 @@
 # $Id$
 
 TARGET = server
-OBJECTS = main.o ../libalex.o
-CFLAGS = -I..
+OBJECTS = main.o ../libalex.o server.o
+CFLAGS = -I.. -I. -Wall
 LIBS =
 
 .c.o:

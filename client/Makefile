@@ -2,7 +2,7 @@
 
 TARGET = client
 OBJECTS = main.o ../libalex.o
-CFLAGS = -I..
+CFLAGS = -I.. -I. -Wall
 LIBS =
 
 .c.o:
