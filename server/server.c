@@ -98,8 +98,8 @@ NOTE - USE clients_remove()
 			*target = *last;
 			*last = NULL;
 		}
-#endif
 }
+#endif
 
 bool client_exists(char *nick)
 {

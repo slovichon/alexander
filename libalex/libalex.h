@@ -4,7 +4,6 @@
 
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <arpa/inet.h>
 
 void substr(int first, int last, char *text, char *subtext);
 struct in_addr * atoaddr(char *address);

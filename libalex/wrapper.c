@@ -9,60 +9,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <arpa/inet.h>
-#include <netdb.h>
+#include <err.h>
 
 #include "libalex.h"
-
-static void _croak(char *function_name);
-
-/*
- * substr - takes a character array and takes a portion of it and copies it
- * to a pointer that is also passed
- *
- * Arguments:
- *	first - first element of char array
- *	last - ending element of char array
- *	text - character array to be subscripted
- *	subtext - pointer to char array that will be written to
- */
-void substr(int first, int last, char *text, char *subtext)
-{
-	int i, j = 0;
-
-	/* bound check */
-	if (i < 1)
-		return;
-
-	for (i = first; i <= last; i++)
-	{
-		subtext[j] = text[i - 1];
-		j++;
-	}
-	subtext[j] = '\0';
-}
-
-/*
- * atoaddr - converts hostname to ip address
- *
- * Arguments:
- * 	address - char array containing hostname or IP
- */
-struct in_addr * atoaddr(char *address)
-{
-	struct hostent *host;
-	static struct in_addr saddr;
-	
-	saddr.s_addr = inet_addr(address);
-	if (saddr.s_addr != -1)   
-		return &saddr;   /*returns if hostname conversion is not needed*/
-
-	host = gethostbyname(address);
-	if (host != NULL)
-		return (struct in_addr *)*host->h_addr_list;
-
-	return NULL;
-}
 
 /*
  * IPC wrapper functions
@@ -74,7 +23,7 @@ key_t Ftok(const char *pathname, int id)
 {
 	key_t i;
 	if ((i = ftok(pathname, id)) == -1)
-		_croak("ftok");
+		err("ftok");
 	return i;
 }
 
@@ -82,7 +31,7 @@ int Pipe(int fd[2])
 {
 	int i;
 	if ((i = pipe(fd)) == -1)
-		_croak("pipe");
+		err("pipe");
 	return i;
 }
 
@@ -90,7 +39,7 @@ int Mkfifo(const char *pathname, mode_t mode)
 {
 	int i;
 	if ((i = mkfifo(pathname, mode)) == -1)
-		_croak("mkfifo");
+		err("mkfifo");
 	return i;
 }
 
@@ -98,7 +47,7 @@ int Msgget(key_t key, int oflag)
 {
 	int i;
 	if ((i = msgget(key, oflag)) == -1)
-		_croak("msgget");
+		err("msgget");
 	return i;
 }
 
@@ -106,7 +55,7 @@ int Msgsnd(int msqid, const void *ptr, size_t length, int flag)
 {
 	int i;
 	if ((i = msgsnd(msqid, ptr, length, flag)) == -1)
-		_croak("msgsnd");
+		err("msgsnd");
 	return i;
 }
 
@@ -114,7 +63,7 @@ ssize_t Msgrcv(int msqid, void *ptr, size_t length, long type, int flag)
 {
 	ssize_t i;
 	if ((i = msgrcv(msqid, ptr, length, type, flag)) == -1)
-		_croak("msgrcv");
+		err("msgrcv");
 	return i;
 }
 
@@ -123,7 +72,7 @@ int Socket(int family, int type, int protocol)
 {
 	int i;
 	if ((i = socket(family, type, protocol)) == -1)
-		_croak("socket");
+		err("socket");
 	return i;
 }
 
@@ -131,7 +80,7 @@ int Connect(int sockfd, const struct sockaddr *servaddr, socklen_t addrlen)
 {
 	int i;
 	if ((i = connect(sockfd, servaddr, addrlen)) == -1)
-		_croak("connect");
+		err("connect");
 	return i;
 }
 
@@ -139,7 +88,7 @@ int Bind(int sockfd, const struct sockaddr *myaddr, socklen_t addrlen)
 {
 	int i;
 	if ((i = bind(sockfd, myaddr, addrlen)) == -1)
-		_croak("bind");
+		err("bind");
 	return i;
 }
 
@@ -147,7 +96,7 @@ int Listen(int sockfd, int backlog)
 {
 	int i;
 	if ((i = listen(sockfd, backlog)) == -1)
-		_croak("listen");
+		err("listen");
 	return i;
 }
 
@@ -155,7 +104,7 @@ int Accept(int sockfd, struct sockaddr *cliaddr, socklen_t *addrlen)
 {
 	int i;
 	if ((i = accept(sockfd, cliaddr, addrlen)) == -1)
-		_croak("accept");
+		err("accept");
 	return i;
 }
 
@@ -164,7 +113,7 @@ pid_t Fork(void)
 {
 	pid_t i;
 	if ((i = fork()) == -1)
-		_croak("fork");
+		err("fork");
 	return i;
 }
 
@@ -172,7 +121,7 @@ int Close(int fd)
 {
 	int i;
 	if ((i = close(fd)) == -1)
-		_croak("close");
+		err("close");
 	return i;
 }
 
@@ -180,7 +129,7 @@ ssize_t Read(int fd, void *buf, size_t nbytes)
 {
 	ssize_t i;
 	if ((i = read(fd, buf, nbytes)) == -1)
-		_croak("read");
+		err("read");
 	return i;
 }
 
@@ -188,7 +137,7 @@ ssize_t Write(int fd, void *buf, size_t nbytes)
 {
 	ssize_t i;
 	if ((i = write(fd, buf, nbytes)) == -1)
-		_croak("write");
+		err("write");
 	return i;
 }
 
@@ -196,7 +145,7 @@ pid_t Waitpid(pid_t wpid, int *status, int options)
 {
 	pid_t i;
 	if ((i = waitpid(wpid, status, options)) == -1)
-		_croak("waitpid");
+		err("waitpid");
 	return i;
 }
 
@@ -204,7 +153,7 @@ int Unlink(const char *pathname)
 {
 	int i;
 	if ((i = unlink(pathname)) == -1)
-		_croak("unlink");
+		err("unlink");
 	return i;
 }
 
@@ -212,22 +161,6 @@ int Open(const char *pathname, int flags, mode_t mode)
 {
 	int i;
 	if ((i = open(pathname, flags, mode)) == -1)
-		_croak("open");
+		err("open");
 	return i;
 }
-
-/* Error functions */
-/*
- * _croak - displays errors associated with calling a function. uses
- * system 'errno'
- *
- * someone needs to read the manpage for err(3)
- */
-static void _croak(char *func)
-{
-	extern int errno;
-	printf("Error calling %s(): %s\n", func, strerror(errno));
-	exit(2);
-}
-
-/* we probably need one for general warning messages */
